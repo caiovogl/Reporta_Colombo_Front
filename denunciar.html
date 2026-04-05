@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportar Ocorrência | Reporta Colombo</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="styleDenunciar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html" style="text-decoration: none; color: inherit;"><strong>Reporta</strong>Colombo</a>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="denunciar.html" class="highlight">Denunciar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="form-page">
+        <section class="hero-small">
+            <div class="container">
+                <h1>Faça sua denúncia</h1>
+                <p>Sua identidade será preservada. Ajude-nos a mapear problemas de saúde e meio ambiente.</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="form-card">
+                <form id="formulario_denuncia">
+                    
+                    <div class="form-group">
+                        <label for="imagem">📸 Foto da Ocorrência</label>
+                        <p class="form-hint">Capture uma imagem clara do problema encontrado.</p>
+                        <input type="file" name="imagem" accept="image/*" capture="camera" required id="imagem">
+                        <div id="image-preview" class="preview-box"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="categoria">📁 O que você está denunciando?</label>
+                        <select id="categoria" name="Tipo_Denuncia" required>
+                            <option value="">Selecione uma opção...</option>
+                            <option value="LixoEntulho">Descarte de Lixo/Entulho</option>
+                            <option value="Esgoto">Esgoto a Céu Aberto</option>
+                            <option value="PoluicaoRio">Poluição em Rio/Córrego</option>
+                            <option value="Queimada">Queimada Urbana</option>
+                            <option value="FocoDengue">Foco de Dengue/Insetos</option>
+                            <option value="Desmatamento">Desmatamento/Corte de Árvore</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descricao">📝 Informações adicionais</label>
+                        <textarea name="descricao" required id="descricao" placeholder="Ex: Próximo à ponte do Rio Verde, lixo acumulado há semanas..." rows="5"></textarea>
+                    </div>
+
+                    <div class="form-group location-box">
+                        <label>📍 Localização da ocorrência</label>
+                        <p class="form-hint">Precisamos do GPS para que a prefeitura encontre o local exato.</p>
+                        <button type="button" id="btn-location" onclick="RegistrarLocalizacao()" class="btn-location">
+                            Obter Localização Atual
+                        </button>
+                        <div id="status-local" class="status-msg">Localização ainda não capturada.</div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="btn-submit" class="btn-primary full-width">Enviar Denúncia</button>
+                    </div>
+
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="main-footer">
+        <div class="container">
+            <p>&copy; 2026 Reporta Colombo - Engenharia de Software</p>
+        </div>
+    </footer>
+
+    <script src="scriptDenuncia.js"></script>
+</body>
+</html>
