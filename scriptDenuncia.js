@@ -5,12 +5,19 @@ var latitude = 0;
 var longitude = 0;
 
 
-document.getElementById('formulario_denuncia').addEventListener('submit', function(event) {
-    event.preventDefault(); // Impede o envio padrão
+document.getElementById('formulario_denuncia').addEventListener('submit', async function(event) {
+    event.preventDefault(); 
+
+    const btnSubmit = document.getElementById('btn-submit');
+
+    btnSubmit.disabled = true; 
+    btnSubmit.innerText = "Enviando denúncia...";
+    btnSubmit.style.opacity = "0.7";
+    btnSubmit.style.cursor = "not-allowed";
 
     const formData = new FormData(this); 
     
-    const imagemData = formData.get("imagem");
+    var imagemData = formData.get("imagem");
     const descricaoData = formData.get("descricao");
     formData.append('Latitude', latitude);
     formData.append('Longitude', longitude);
@@ -19,25 +26,35 @@ document.getElementById('formulario_denuncia').addEventListener('submit', functi
       alert("formato da imagem incorreto!");
       return null;
     }
+    
+    imagemData = await redimensionarImagem(imagemData);
 
     if(latitude == 0 && longitude == 0){
       alert("informe a localização da ocorrência!");
       return null;
     }
-
-    console.log(formData.get("Tipo_Denuncia"));
   
-    fetch('https://reporta-colombo-back.onrender.com/Adicionar-Denuncia', {
-      method: 'POST',
-      body: formData // Não precisa definir Content-Type, o navegador faz isso
-    })
-  .then(response => response.json())
-  .then(data => console.log(data));
+    try{
+      const response = fetch('https://reporta-colombo-back.onrender.com/Adicionar-Denuncia', {
+        method: 'POST',
+        body: formData 
+      })
+
+      if(response.ok){
+        mostrarFeedbackSucesso()
+      }else{
+        const erroData = await response.json().catch(() => ({})); 
+        const mensagem = erroData.message || "Verifique os dados e tente novamente.";
+        
+        mostrarErro(mensagem);
+      }
+    }catch(error){
+      mostrarErro("Não foi possível conectar ao servidor. Tente mais tarde.");
+    }
+
 });
 
 function RegistrarLocalizacao(){
-    
-
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition((position) =>{
             latitude = position.coords.latitude;
@@ -70,3 +87,66 @@ function showErrorLocal(error) {
   }
 }
 
+async function redimensionarImagem(arquivo, larguraMaxima = 1024) {
+    return new Promise((resolve, reject) => {
+        const leitor = new FileReader();
+        leitor.readAsDataURL(arquivo);
+
+        leitor.onload = (evento) => {
+            const img = new Image();
+            img.src = evento.target.result;
+
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let largura = img.width;
+                let altura = img.height;
+
+                // Calcula a proporção para não distorcer
+                if (largura > larguraMaxima) {
+                    altura *= larguraMaxima / largura;
+                    largura = larguraMaxima;
+                }
+
+                canvas.width = largura;
+                canvas.height = altura;
+
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, largura, altura);
+
+                // Exporta como JPEG com 70% de qualidade (ótimo equilíbrio)
+                canvas.toBlob((blob) => {
+                    resolve(blob);
+                }, 'image/jpeg', 0.7);
+            };
+        };
+
+        leitor.onerror = (erro) => reject(erro);
+    });
+}
+
+function mostrarFeedbackSucesso() {
+    const toast = document.getElementById("toast");
+    toast.className = "toast show";
+    
+    setTimeout(() => { 
+        toast.className = toast.className.replace("show", ""); 
+        window.location.href = "index.html"; 
+    }, 3000);
+}
+
+function mostrarErro(mensagem) {
+    const toast = document.getElementById("toast");
+    const btnSubmit = document.getElementById('btn-submit');
+
+    toast.innerText = `⚠️ ${mensagem}`;
+    toast.style.backgroundColor = "#e74c3c";
+    toast.classList.add("show");
+
+    btnSubmit.disabled = false;
+    btnSubmit.innerText = "Tentar Novamente";
+    btnSubmit.style.opacity = "1";
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 4000);
+}

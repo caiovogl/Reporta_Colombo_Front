@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reportar Ocorrência | Reporta Colombo</title>
     <link rel="stylesheet" href="reset.css">
-    <link rel="stylesheet" href="style.css"> <link rel="stylesheet" href="styleDenunciar.css">
+    <link rel="stylesheet" href="styleDenunciar.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -39,7 +39,7 @@
                     <div class="form-group">
                         <label for="imagem">📸 Foto da Ocorrência</label>
                         <p class="form-hint">Capture uma imagem clara do problema encontrado.</p>
-                        <input type="file" name="imagem" accept="image/*" capture="camera" required id="imagem">
+                        <input type="file" name="imagem" accept="image/*" capture="environment" required id="imagem">
                         <div id="image-preview" class="preview-box"></div>
                     </div>
 
@@ -77,6 +77,7 @@
                 </form>
             </div>
         </section>
+        <div id="toast" class="toast">Denúncia enviada com sucesso! 🚀</div>
     </main>
 
     <footer class="main-footer">
