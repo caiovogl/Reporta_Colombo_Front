@@ -35,7 +35,7 @@ document.getElementById('formulario_denuncia').addEventListener('submit', async 
     }
   
     try{
-      const response = fetch('https://reporta-colombo-back.onrender.com/Adicionar-Denuncia', {
+      const response = await fetch('https://reporta-colombo-back.onrender.com/Adicionar-Denuncia', {
         method: 'POST',
         body: formData 
       })
@@ -101,7 +101,6 @@ async function redimensionarImagem(arquivo, larguraMaxima = 1024) {
                 let largura = img.width;
                 let altura = img.height;
 
-                // Calcula a proporção para não distorcer
                 if (largura > larguraMaxima) {
                     altura *= larguraMaxima / largura;
                     largura = larguraMaxima;
@@ -113,7 +112,6 @@ async function redimensionarImagem(arquivo, larguraMaxima = 1024) {
                 const ctx = canvas.getContext('2d');
                 ctx.drawImage(img, 0, 0, largura, altura);
 
-                // Exporta como JPEG com 70% de qualidade (ótimo equilíbrio)
                 canvas.toBlob((blob) => {
                     resolve(blob);
                 }, 'image/jpeg', 0.7);
