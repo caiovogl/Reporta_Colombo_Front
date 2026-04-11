@@ -1,4 +1,3 @@
-
 const localText = document.getElementById("status-local");
 
 var latitude = 0;
@@ -35,7 +34,7 @@ document.getElementById('formulario_denuncia').addEventListener('submit', async 
     }
   
     try{
-      const response = await fetch('https://reporta-colombo-back.onrender.com/Adicionar-Denuncia', {
+      const response = await fetch(API_URL+'Adicionar-Denuncia', {
         method: 'POST',
         body: formData 
       })

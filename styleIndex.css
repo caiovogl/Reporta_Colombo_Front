@@ -273,34 +273,50 @@ nav a:hover {
 
     .main-header .container {
         flex-direction: column; 
-        gap: 15px; /* Espaço entre logo, menu e botão */
+        gap: 15px;
         text-align: center;
         padding: 15px 0;
+        transition: padding 0.4s ease, background-color 0.4s ease;
     }
 
-    /* 2. Ajusta a lista de links para não quebrar feio */
     nav ul {
-        flex-direction: row; /* Mantém em linha, mas permite quebrar */
-        flex-wrap: wrap;    /* Se não couber, joga o link para a linha de baixo */
+        flex-direction: row; 
+        flex-wrap: wrap;    
         justify-content: center;
         gap: 12px;
         padding: 0;
     }
 
     nav a {
-        font-size: 0.85rem; /* Diminui um pouco a fonte nos links */
-        white-space: nowrap; /* Impede que o texto de um link quebre no meio */
+        font-size: 0.85rem; 
+        white-space: nowrap; 
     }
 
-    /* 3. Ajusta o botão de Acesso Administrativo */
     .auth-buttons {
+        transition: all 0.3s ease; 
+        max-height: 150px;
+        opacity: 1;
+        overflow: hidden;
         width: 100%;
         display: flex;
         justify-content: center;
     }
 
+    .auth-buttons.hidden-scroll {
+        max-height: 0;
+        opacity: 0;
+        margin: 0;
+        padding: 0;
+        pointer-events: none; /* Impede cliques enquanto estiver invisível */
+    }
+
+    .main-header.scrolled .container {
+        gap: 5px;
+        padding: 10px 0;
+    }
+
     .btn-login {
-        width: 80%; /* Faz o botão ficar mais largo e fácil de clicar no touch */
+        width: 80%; 
         max-width: 250px;
         padding: 12px;
         display: block;

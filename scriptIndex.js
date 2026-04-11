@@ -17,7 +17,7 @@ async function initMap() {
 }
 
 async function carregarDenunciasNoMapa(AdvancedMarkerElement, PinElement) {
-    const response = await fetch('https://reporta-colombo-back.onrender.com/Buscar-Denuncias-Filtrado', {
+    const response = await fetch(API_URL+'Buscar-Denuncias-Filtrado', {
       method: 'POST',
       headers: {
       'Content-Type': 'application/json' 
@@ -36,16 +36,15 @@ async function carregarDenunciasNoMapa(AdvancedMarkerElement, PinElement) {
         const marker = new AdvancedMarkerElement({
             map: map,
             position: { lat: denuncia.latitude, lng: denuncia.longitude },
-            title: denuncia.des_descricao,
+            title: denuncia.des_Denuncia,
             content: pinCustomizado.element,
         });
-
-        // Janela de informações ao clicar no ponto
+        
         const infoWindow = new google.maps.InfoWindow({
             content: `
                 <div style="color: #2c3e50; padding: 5px;">
                     <strong style="color: ${definirIcone(tipoDenuncias[denuncia.tipo_Denuncia - 1])}">${tipoDenuncias[denuncia.tipo_Denuncia - 1]}</strong><br>
-                    <p style="margin: 5px 0;">${denuncia.des_descricao}</p>
+                    <p style="margin: 5px 0;">${denuncia.des_Denuncia}</p>
                     <img src="${denuncia.url_Imagem}" style="width:100%; border-radius:5px;"><br>
                     <small>Relatado em: ${new Date(denuncia.dta_Cadastro).toLocaleString()}</small>
                 </div>
@@ -59,8 +58,6 @@ async function carregarDenunciasNoMapa(AdvancedMarkerElement, PinElement) {
 }
 
 function definirIcone(categoria) {
-    console.log(categoria)
-
     switch (categoria) {
         case 'Esgoto': return "#9b59b6";
         case 'Queimada': return "#e67e22";
@@ -71,3 +68,16 @@ function definirIcone(categoria) {
         default: return "#7f8c8d";
     }
 }
+
+window.addEventListener('scroll', () => {
+    const authSection = document.querySelector('.auth-buttons');
+    const header = document.querySelector('.main-header');
+
+    if (window.scrollY > 50) {
+        authSection.classList.add('hidden-scroll');
+        header.classList.add('scrolled'); 
+    } else {
+        authSection.classList.remove('hidden-scroll');
+        header.classList.remove('scrolled');
+    }
+});
