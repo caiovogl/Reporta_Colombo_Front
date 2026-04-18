@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reporta Colombo | Meio Ambiente e Saúde</title>
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="styleAdministrativo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="container">
+            <div class="logo">
+                <strong>Reporta</strong>Colombo
+            </div>
+            <nav>
+                <ul>
+                    <button id="btn-menu" class="hamburger-menu">
+                        ☰
+                    </button>
+                    <li><a href="index.html">Início</a></li>
+                    <li><a href="denunciar.html" class="highlight">Denunciar</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="admin-container">
+        <aside class="sidebar" id="sidebar">
+            <h3>Painel Reporta</h3>
+            <nav>
+                <ul>
+                    <li><a href="#" class="active">📋 Todas as Denúncias</a></li>
+                    <li><a href="#">🟡 Pendentes</a></li>
+                    <li><a href="#">🟢 Resolvidas</a></li>
+                </ul>
+            </nav>
+            <div class="stats-card">
+                <span>Total de Ocorrências</span>
+                <strong class="quantOcorrencia">42</strong>
+            </div>
+        </aside>
+
+        <section class="content">
+            <header class="content-header">
+                <h2>Gerenciamento de Ocorrências</h2>
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar por bairro ou tipo...">
+                </div>
+            </header>
+
+            <div class="reports-grid">
+            </div>
+        </section>
+    </main>
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-info">
+                <p>&copy; 2026 Reporta Colombo - Atividade de Extensão Universitária</p>
+                <p>Engenharia de Software | Alinhado às ODS 3 e 11 da ONU</p>
+            </div>
+            <div class="footer-logos">
+                <span><img src="https://upload.wikimedia.org/wikipedia/pt/d/d1/Logotipo_da_Universidade_Positivo.svg" width="250px" alt=""></span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="scriptBase.js"></script>
+    <script src="scriptAdministrativo.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbtjWVAenBp8tT8YgJKg5V0bWMnhoDiDA&callback=initMap" async defer></script>
+</body>
+</html>
